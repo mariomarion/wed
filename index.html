@@ -1,0 +1,173 @@
+<html><head><base href="https://exampleserverbase.com/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PAGO INTERNET DOCENTES IRH</title>
+    <style>
+    body {
+        font-family: "Times New Roman", Times, serif;
+        background-image: url('https://example.com/grey-background.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .form-container {
+        display: flex;
+        gap: 20px;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        padding: 10px;
+        vertical-align: top;
+    }
+    label {
+        display: inline-block;
+        width: 100px;
+        font-weight: bold;
+    }
+    input, select {
+        width: 200px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    #pagoBtn {
+        background-color: #808080;
+        color: white;
+        border: none;
+    }
+    #facturaBtn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+    }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>PAGO INTERNET DOCENTES IRH</h1>
+        <div class="form-container">
+            <form id="docentesForm">
+                <table>
+                    <tr>
+                        <td colspan="2"><h2>DOCENTES</h2></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id">ID:</label></td>
+                        <td><input type="text" id="id" name="id" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="nombre">NOMBRE:</label></td>
+                        <td><input type="text" id="nombre" name="nombre" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="telefono">TELÉFONO:</label></td>
+                        <td><input type="tel" id="telefono" name="telefono" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="dispositivo">DISPOSITIVO:</label></td>
+                        <td>
+                            <select id="dispositivo" name="dispositivo" required>
+                                <option value="">Seleccione un dispositivo</option>
+                                <option value="smartphone">Smartphone</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="desktop">Desktop</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="mes">MES:</label></td>
+                        <td>
+                            <input type="date" id="mes" name="mes" required>
+                            <div id="fechaSeleccionada"></div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form id="facturaForm">
+                <table>
+                    <tr>
+                        <td colspan="2"><h2>FACTURA</h2></td>
+                    </tr>
+                    <tr>
+                        <td><label for="idFactura">ID FACTURA:</label></td>
+                        <td><input type="text" id="idFactura" name="idFactura" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label for="nombreFactura">NOMBRE:</label></td>
+                        <td><input type="text" id="nombreFactura" name="nombreFactura" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label for="mesFactura">MES:</label></td>
+                        <td><input type="text" id="mesFactura" name="mesFactura" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><label for="aporte">APORTE:</label></td>
+                        <td><input type="number" id="aporte" name="aporte" step="0.01" required></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="pagoBtn">Pago</button>
+            <button id="facturaBtn">Factura</button>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mesInput = document.getElementById('mes');
+        const fechaSeleccionada = document.getElementById('fechaSeleccionada');
+        const pagoBtn = document.getElementById('pagoBtn');
+        const facturaBtn = document.getElementById('facturaBtn');
+    
+        mesInput.addEventListener('change', function() {
+            const fecha = new Date(this.value);
+            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+            fechaSeleccionada.textContent = fecha.toLocaleDateString('es-ES', opciones);
+        });
+    
+        pagoBtn.addEventListener('click', function() {
+            const id = document.getElementById('id').value;
+            const nombre = document.getElementById('nombre').value;
+            const fecha = new Date(document.getElementById('mes').value);
+            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+    
+            document.getElementById('idFactura').value = id;
+            document.getElementById('nombreFactura').value = nombre;
+            document.getElementById('mesFactura').value = fecha.toLocaleDateString('es-ES', opciones);
+        });
+    
+        facturaBtn.addEventListener('click', function() {
+            // Aquí se simula el envío a una base de datos
+            const facturaData = {
+                idFactura: document.getElementById('idFactura').value,
+                nombreFactura: document.getElementById('nombreFactura').value,
+                mesFactura: document.getElementById('mesFactura').value,
+                aporte: document.getElementById('aporte').value
+            };
+    
+            // Simulación de envío a base de datos (en una aplicación real, esto sería una llamada AJAX)
+            console.log('Enviando datos a la base de datos:', facturaData);
+            alert('Factura enviada a la base de datos');
+        });
+    });
+    </script>
+    
+    
